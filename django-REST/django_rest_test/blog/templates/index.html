@@ -24,14 +24,15 @@
 <body>
   <!-- これを追加してエスケープ。テンプレートの書き方が被っているのでこうする -->
   {% verbatim %}
-  test
+  GETを押すと今あるデータを取得し、formに入力してPOSTを押すとデータを送信します。<br>
+  usersリンクはDjango REST frameworkが提供するapi側のページです。
   <div id="app">
     <button @click="getData()">GET</button>
     <a href="api/users">users</a>
     <form action="" @submit.prevent="postData()">
-      <input type="text" v-model="name">
+      <label for="">name：<input type="text" v-model="name"></label>
       <p>{{name}}</p>
-      <input type="text" v-model="mail">
+      <label for="">mail：<input type="text" v-model="mail"></label>
       <p>{{mail}}</p>
       <button type="submit">POST</button>
     </form>
