@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<style>
+  a,
+  input {
+    display: block;
+  }
+
+  input {
+    border: 1px solid #000;
+  }
+
+  p {
+    white-space: pre-wrap;
+  }
+
+</style>
+
+<body>
+  <!-- これを追加してエスケープ。テンプレートの書き方が被っているのでこうする -->
+  {% verbatim %}
+  test
+  <div id="app">
+    <button @click="getData()">GET</button>
+    <a href="api/users">users</a>
+    <form action="" @submit.prevent="postData()">
+      <input type="text" v-model="name">
+      <p>{{name}}</p>
+      <input type="text" v-model="mail">
+      <p>{{mail}}</p>
+      <button type="submit">POST</button>
+    </form>
+    <p>{{ info }}</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          name: "",
+          mail: "",
+          info: null
+        }
+      },
+      methods: {
+        getData: function() {
+          console.log("get")
+          axios
+            .get('api/users/')
+            .then(response => (this.info = JSON.stringify(response, null, 4)))
+          console.log(this.info)
+        },
+        postData: function() {
+          console.log("post")
+          axios
+            .post('api/users/', {
+              "name": this.name,
+              "mail": this.mail
+            })
+            .then(response => {
+              console.log(response => (this.info = JSON.stringify(response, null, 4)))
+            })
+          console.log(this.info)
+        }
+      },
+    })
+
+  </script>
+  {% endverbatim %}
+</body>
+
+</html>
